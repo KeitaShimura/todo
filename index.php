@@ -5,12 +5,19 @@ $password = '';
 
 try {
     $pdo = new PDO($dsn, $user, $password);
-    echo 'データベースの接続に成功しました。';
-} catch (PDOException $e) {
-    exit('データベースの接続に失敗しました。' . $e->getMessage());
-}
-?>
 
+    $sql = 'CREATE TABLE IF NOT EXISTS posts (
+        id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        content TEXT NOT NULL,
+        created_at TIMESTAMP,
+        updated_at TIMESTAMP
+        )';
+        
+        $pdo->query($sql);
+    } catch (PDOException $e) {
+        exit($e->getMessage());
+    }
+?>
 
 <!DOCTYPE html>
 <html lang="ja">
