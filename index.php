@@ -1,5 +1,19 @@
+<?PHP
+$dsn = 'mysql:dbname=todo;host=127.0.0.1;charset=utf8mb4';
+$user = 'root';
+$password = '';
+
+try {
+    $pdo = new PDO($dsn, $user, $password);
+    echo 'データベースの接続に成功しました。';
+} catch (PDOException $e) {
+    exit('データベースの接続に失敗しました。' . $e->getMessage());
+}
+?>
+
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
