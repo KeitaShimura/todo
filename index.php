@@ -22,14 +22,20 @@ $posts = $pdo->query('SELECT * FROM posts ORDER BY id DESC');
     </form>
 
     <article>
+    <?php if($posts->rowCount() === 0){ ?>
+        <p>TODOはありません</p>
+    <?php } else { ?>
+
         <?php while ($post = $posts->fetch()): ?>
-        <p><?php print($post['content']); ?></p>
-        <p></p>
-        <p>編集</p>
-        <a href="update.php?id=<?php print($post['id']); ?>"">編集</a>
-        <p>削除</p>
-        <a href="delete.php?id=<?php print($post['id']); ?>">削除</a>
+            
+                <p><?php print($post['content']); ?></p>
+                <p>編集</p>
+                <a href="update.php?id=<?php print($post['id']); ?>"">編集</a>
+                <p>削除</p>
+                <a href="delete.php?id=<?php print($post['id']); ?>">削除</a>
+            
         <?php endwhile; ?>
+        <?php } ?>
     </article>
 </body>
 </html>
