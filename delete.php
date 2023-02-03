@@ -6,5 +6,7 @@ if(isset($_REQUEST['id'])) {
 
     $statement = $pdo->prepare('DELETE FROM posts WHERE id=?');
     $statement->execute(array($id));
+
+    header('Location: http://localhost/todo/');
 }
 ?>

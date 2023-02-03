@@ -12,7 +12,7 @@ try {
     //     created_at DATETIME,
     //     updated_at DATETIME
     //     )';
-        
+
     //     $pdo->query($sql);
     } catch (PDOException $e) {
         exit($e->getMessage());
