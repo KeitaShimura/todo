@@ -1,22 +1,7 @@
 <?PHP
-$dsn = 'mysql:dbname=todo;host=127.0.0.1;charset=utf8mb4';
-$user = 'root';
-$password = '';
+require "db.php";
 
-try {
-    $pdo = new PDO($dsn, $user, $password);
-
-    $sql = 'CREATE TABLE IF NOT EXISTS posts (
-        id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        content TEXT NOT NULL,
-        created_at TIMESTAMP,
-        updated_at TIMESTAMP
-        )';
-        
-        $pdo->query($sql);
-    } catch (PDOException $e) {
-        exit($e->getMessage());
-    }
+$posts = $pdo->query('SELECT * FROM posts ORDER BY id DESC');
 ?>
 
 <!DOCTYPE html>
@@ -29,8 +14,20 @@ try {
 </head>
 <body>
     <h1>TODO一覧、登録画面</h1>
-    <form method="post" action="index.php">
-        <textarea name="TODO" cols="100" rows="5" placeholder="ここにTOTOを入力"></textarea>
+    <form method="post" action="add.php">
+        <textarea name="content" cols="50" rows="5" placeholder="ここにTOTOを入力"></textarea>
+        <button type="submit">作成</button>
     </form>
+
+    <article>
+        <?php while ($post = $posts->fetch()): ?>
+        <p><?php print($post['content']); ?></p>
+        <p></p>
+        <p>編集</p>
+        <button type="submit">編集</button>
+        <p>削除</p>
+        <button type="submit">削除</button>
+        <?php endwhile; ?>
+    </article>
 </body>
 </html>
