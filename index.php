@@ -2,6 +2,8 @@
 require "db.php";
 
 $posts = $pdo->query('SELECT * FROM posts ORDER BY id DESC');
+
+
 ?>
 
 <!DOCTYPE html>
@@ -26,7 +28,7 @@ $posts = $pdo->query('SELECT * FROM posts ORDER BY id DESC');
         <p>編集</p>
         <a href="update.php?id=<?php print($post['id']); ?>"">編集</a>
         <p>削除</p>
-        <button type="submit">削除</button>
+        <a href="delete.php?id=<?php print($post['id']); ?>">削除</a>
         <?php endwhile; ?>
     </article>
 </body>
