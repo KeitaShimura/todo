@@ -24,7 +24,7 @@ $posts = $pdo->query('SELECT * FROM posts ORDER BY id DESC');
         <p><?php print($post['content']); ?></p>
         <p></p>
         <p>編集</p>
-        <button type="submit">編集</button>
+        <a href="update.php?id=<?php print($post['id']); ?>"">編集</a>
         <p>削除</p>
         <button type="submit">削除</button>
         <?php endwhile; ?>
