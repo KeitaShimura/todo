@@ -6,15 +6,6 @@ $password = '';
 try {
     $pdo = new PDO($dsn, $user, $password);
 
-    // // テーブルの作成
-    // $sql = 'CREATE TABLE IF NOT EXISTS posts (
-    //     id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    //     content TEXT NOT NULL,
-    //     created_at DATETIME,
-    //     updated_at DATETIME
-    //     )';
-
-    //     $pdo->query($sql);
     } catch (PDOException $e) {
         exit($e->getMessage());
     }
