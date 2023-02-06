@@ -1,7 +1,9 @@
 <?PHP
 require "db.php";
 
-$posts = $pdo->query('SELECT * FROM posts ORDER BY id DESC');
+$db = new Db();
+$posts = $db->getPosts();
+
 
 ?>
 
@@ -29,9 +31,7 @@ $posts = $pdo->query('SELECT * FROM posts ORDER BY id DESC');
             </div>
         </form>
         <article>
-            <?php if ($posts->rowCount() === 0) { ?>
                 <h3 class="fs-3" style="text-align: center; margin: 50px 0 0 0;">TODOはありません</h3>
-            <?php } else { ?>
                 <div class="table-responsive">
                 <table class="table" style="margin:30px auto; text-align: center; border-top: 1px solid lightgray; width:80%;" >
                     <thead style="height: 50px;">
@@ -41,7 +41,7 @@ $posts = $pdo->query('SELECT * FROM posts ORDER BY id DESC');
                             <th class="col-3" style="font-weight: bold;">削除</th>
                         </tr>
                     </thead>
-                    <?php while ($post = $posts->fetch()) : ?>
+                    <?php foreach($posts as $post) : ?>
                         <tbody>
                             <tr>
                                 <td class="col-3" style="text-align: left; vertical-align: middle;"><?php print($post['content']); ?></td>
@@ -51,10 +51,9 @@ $posts = $pdo->query('SELECT * FROM posts ORDER BY id DESC');
                                 </form>
                             </tr>
                         </tbody>
-                    <?php endwhile; ?>
+                    <?php endforeach; ?>
                 </table>
                 </div>
-            <?php } ?>
         </article>
     </div>
 </body>
