@@ -1,9 +1,9 @@
 <?php
-require "../config/db.php";
-require "../model/post.php";
-require "../controller/postController.php";
+require_once "../config/db.php";
+require_once "../model/post.php";
+require_once "../controller/postController.php";
 
-session_start();
+// session_start();
 $token = filter_input(INPUT_POST, 'token');
 if (empty($_SESSION['token']) || $token !== $_SESSION['token']) {
     die('投稿失敗');
@@ -11,6 +11,4 @@ if (empty($_SESSION['token']) || $token !== $_SESSION['token']) {
 
     $obj = new postController();
     $obj->insert($_POST['content']);
-
-    echo $_POST['content'];
 }

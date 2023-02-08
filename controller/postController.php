@@ -1,5 +1,6 @@
 <?php
 
+
 class postController
 {
     private $model;
@@ -13,6 +14,7 @@ class postController
         $content = htmlspecialchars($_POST['content'], ENT_QUOTES);
 
         $this->model->insert($content);
+        $_SESSION['status'] = "TODOを作成しました。";
         return header("Location: ../index.php");
     }
 
@@ -29,11 +31,13 @@ class postController
     public function update($id, $content)
     {
         $content = htmlspecialchars($_POST['content'], ENT_QUOTES);
-        return ($this->model->update($id, $content) != false) ? header("Location: ../edit.php") : header("Location:../edit.php");
+        $_SESSION['status'] = "TODOを更新しました。";
+        return ($this->model->update($id, $content) != false) ? header("Location: ../index.php") : header("Location:../index.php");
     }
 
     public function delete($id)
     {
+        $_SESSION['status'] = "TODOを削除しました。";
         return ($this->model->delete($id)) ? header("Location: ../index.php") : header("Location: ../index.php");
     }
 }

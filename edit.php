@@ -1,11 +1,10 @@
 <?PHP
-require "config/db.php";
-require "model/post.php";
-require "controller/postController.php";
+require_once "config/db.php";
+require_once "model/post.php";
+require_once "controller/postController.php";
 $obj = new postController();
 $post = $obj->show($_GET['id']);
 
-session_start();
 $token = bin2hex(openssl_random_pseudo_bytes(24));
 $_SESSION['token'] = $token;
 ?>
@@ -31,12 +30,9 @@ $_SESSION['token'] = $token;
             <input type="hidden" name="token" value="<?= htmlspecialchars($token, ENT_COMPAT, 'UTF-8'); ?>">
             <div class="button" style="margin-top: 5px;">
                 <a href="index.php" class="btn btn-secondary">戻る</a>
-                <!-- <form method="POST" action="view/update.php"> -->
                 <button type="submit" class="btn btn-primary">更新</button>
-                <!-- </form> -->
             </div>
         </form>
     </div>
 </body>
-
 </html>

@@ -1,11 +1,11 @@
 <?PHP
-require "config/db.php";
-require "model/post.php";
-require "controller/postController.php";
+require_once "config/db.php";
+require_once "model/post.php";
+require_once "controller/postController.php";
 $obj = new postController();
 $posts = $obj->index();
 
-session_start();
+// session_start();
 $token = bin2hex(openssl_random_pseudo_bytes(24));
 $_SESSION['token'] = $token;
 ?>
@@ -26,6 +26,13 @@ $_SESSION['token'] = $token;
     <div style="text-align: center;" class="position-relative">
         <form method="POST" action="view/store.php">
             <h2 class="fs-2" style="text-align: left; margin: 50px 0 0 10%;">TODOアプリ</h2>
+            <?php if (isset($_SESSION['status'])) : ?>
+                <div class="alert alert-success" role="alert">
+                    <?php echo $_SESSION['status'];
+                    unset($_SESSION['status']); ?>
+                </div>
+
+            <?php endif; ?>
             <div class="form" style="text-align: center;">
                 <textarea name="content" cols="100" rows="4" placeholder="ここにTOTOを入力" style="width:80%; padding: 5px 10px;"></textarea>
                 <input type="hidden" name="token" value="<?= htmlspecialchars($token, ENT_COMPAT, 'UTF-8'); ?>">
