@@ -4,6 +4,10 @@ require "model/post.php";
 require "controller/postController.php";
 $obj = new postController();
 $posts = $obj->index();
+
+session_start();
+$token = bin2hex(openssl_random_pseudo_bytes(24));
+$_SESSION['token'] = $token;
 ?>
 
 <!DOCTYPE html>
@@ -24,42 +28,44 @@ $posts = $obj->index();
             <h2 class="fs-2" style="text-align: left; margin: 50px 0 0 10%;">TODOアプリ</h2>
             <div class="form" style="text-align: center;">
                 <textarea name="content" cols="100" rows="4" placeholder="ここにTOTOを入力" style="width:80%; padding: 5px 10px;"></textarea>
+                <input type="hidden" name="token" value="<?= htmlspecialchars($token, ENT_COMPAT, 'UTF-8'); ?>">
                 <div class="button" style="margin-top: 5px;">
                     <button type="submit" class="btn btn-primary">作成</button>
                 </div>
             </div>
         </form>
         <article>
-                <div class="table-responsive">
-                <?php if($posts): ?>
-                <table class="table" style="margin:30px auto; text-align: center; border-top: 1px solid lightgray; width:80%;" >
-                    <thead style="height: 50px;">
-                        <tr>
-                            <th class="col-3" style="font-weight: bold;">メモの内容</th>
-                            <th class="col-3" style="font-weight: bold;">編集</th>
-                            <th class="col-3" style="font-weight: bold;">削除</th>
-                        </tr>
-                    </thead>
-                    
-                        <tbody>
-                                <?php foreach($posts as $post): ?>
+            <div class="table-responsive">
+                <?php if ($posts) : ?>
+                    <table class="table" style="margin:30px auto; text-align: center; border-top: 1px solid lightgray; width:80%;">
+                        <thead style="height: 50px;">
                             <tr>
-                                <td class="col-3" style="text-align: left; vertical-align: middle;"><?php print($post['content']); ?></td>
-                                <td class="col-3" style="vertical-align: middle;"><a href="edit.php?id=<?php print($post['id']); ?>" class="btn btn-primary">編集</a></td>
-                                <form method="post" action="view/delete.php?id=<?php print($post['id']); ?>">
-                                    <td class="col-3" style="vertical-align: middle;"><button class="btn btn-danger">削除</button></td>
-                                </form>
+                                <th class="col-3" style="font-weight: bold;">メモの内容</th>
+                                <th class="col-3" style="font-weight: bold;">編集</th>
+                                <th class="col-3" style="font-weight: bold;">削除</th>
                             </tr>
-                                <?php endforeach; ?>
-                                
+                        </thead>
+
+                        <tbody>
+                            <?php foreach ($posts as $post) : ?>
+                                <tr>
+                                    <td class="col-3" style="text-align: left; vertical-align: middle;"><?php print($post['content']); ?></td>
+                                    <td class="col-3" style="vertical-align: middle;"><a href="edit.php?id=<?php print($post['id']); ?>" class="btn btn-primary">編集</a></td>
+                                    <form method="post" action="view/delete.php?id=<?php print($post['id']); ?>">
+                                        <td class="col-3" style="vertical-align: middle;"><button class="btn btn-danger">削除</button></td>
+                                    </form>
+                                </tr>
+                            <?php endforeach; ?>
+
                         </tbody>
-                        
-                </table>
-                <?php else: ?>
-                                    <h3 class="fs-3" style="text-align: center; margin: 50px 0 0 0;">TODOはありません</h3>
-                                    <?php endif; ?>
-                </div>
+
+                    </table>
+                <?php else : ?>
+                    <h3 class="fs-3" style="text-align: center; margin: 50px 0 0 0;">TODOはありません</h3>
+                <?php endif; ?>
+            </div>
         </article>
     </div>
 </body>
+
 </html>
