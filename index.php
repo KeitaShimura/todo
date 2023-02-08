@@ -74,4 +74,5 @@ $_SESSION['token'] = $token;
         </article>
     </div>
 </body>
+
 </html>
