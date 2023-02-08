@@ -5,7 +5,7 @@ require_once "controller/postController.php";
 $obj = new postController();
 $posts = $obj->index();
 
-// session_start();
+
 $token = bin2hex(openssl_random_pseudo_bytes(24));
 $_SESSION['token'] = $token;
 ?>
