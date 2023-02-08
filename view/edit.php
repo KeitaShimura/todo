@@ -1,7 +1,7 @@
 <?PHP
-require_once "config/db.php";
-require_once "model/post.php";
-require_once "controller/postController.php";
+require_once "../config/db.php";
+require_once "../model/post.php";
+require_once "../controller/postController.php";
 $obj = new postController();
 $post = $obj->show($_GET['id']);
 
@@ -24,15 +24,16 @@ $_SESSION['token'] = $token;
     <h1 class="fs-1" style="margin: 50px 0 0 40px;">TODO編集画面</h1>
     <div style="text-align: center;">
         <h2 class="fs-1" style="text-align: left; margin: 50px 0 10px 10%;">TODOアプリ</h2>
-        <form method="POST" action="view/update.php">
-        <input type="hidden" name="id" value="<?php print($post[0]); ?>">
+        <form method="POST" action="update.php">
+            <input type="hidden" name="id" value="<?php print($post[0]); ?>">
             <textarea name="content" cols="100" rows="4" style="width:80%; padding: 5px 10px;"><?php print($post[1]); ?></textarea>
             <input type="hidden" name="token" value="<?= htmlspecialchars($token, ENT_COMPAT, 'UTF-8'); ?>">
             <div class="button" style="margin-top: 5px;">
-                <a href="index.php" class="btn btn-secondary">戻る</a>
+                <a href="../index.php" class="btn btn-secondary">戻る</a>
                 <button type="submit" class="btn btn-primary">更新</button>
             </div>
         </form>
     </div>
 </body>
+
 </html>
