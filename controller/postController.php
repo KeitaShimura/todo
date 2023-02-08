@@ -7,6 +7,8 @@
         }
 
         public function guardar($content){
+            $content = htmlspecialchars($_POST['content'], ENT_QUOTES);
+
             $this->model->insert($content);
             return header("Location: ../index.php");
         }
@@ -20,6 +22,7 @@
         }
 
         public function update($id, $content){
+            $content = htmlspecialchars($_POST['content'], ENT_QUOTES);
             return ($this->model->update($id, $content) != false) ? header("Location: ../edit.php") : header("Location:../edit.php");
         }
 
