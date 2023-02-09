@@ -19,24 +19,26 @@ class postController
 
     public function show($id)
     {
-        return ($this->model->show($id) != false) ? $this->model->show($id) : header("Location:index.php");
+        return $this->model->show($id);
     }
 
     public function index()
     {
-        return ($this->model->index()) ? $this->model->index() : false;
+        return $this->model->index();
     }
 
-    public function update($id, $content)
+    public function update($id)
     {
         $content = htmlspecialchars($_POST['content'], ENT_QUOTES);
         $_SESSION['status'] = "TODOを更新しました。";
-        return ($this->model->update($id, $content) != false) ? header("Location: ../index.php") : header("Location:../index.php");
+        $this->model->update($id, $content);
+        return header("Location: ../index.php");
     }
 
     public function delete($id)
     {
         $_SESSION['status'] = "TODOを削除しました。";
-        return ($this->model->delete($id)) ? header("Location: ../index.php") : header("Location: ../index.php");
+        $this->model->delete($id);
+        return header("Location: ../index.php");
     }
 }
