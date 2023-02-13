@@ -10,7 +10,7 @@ class postController
 
     public function insert($content)
     {
-        $content = htmlspecialchars($_POST['content'], ENT_QUOTES);
+        $content = htmlspecialchars($content, ENT_QUOTES);
 
         $this->model->insert($content);
         $_SESSION['status'] = "TODOを作成しました。";
@@ -27,9 +27,9 @@ class postController
         return $this->model->index();
     }
 
-    public function update($id)
+    public function update($id, $content)
     {
-        $content = htmlspecialchars($_POST['content'], ENT_QUOTES);
+        $content = htmlspecialchars($content, ENT_QUOTES);
         $_SESSION['status'] = "TODOを更新しました。";
         $this->model->update($id, $content);
         return header("Location: ../index.php");
